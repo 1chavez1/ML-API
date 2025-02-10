@@ -38,7 +38,7 @@ _Esta imagen detalla las etapas por las que pasa el texto desde su recepción ha
   _Descripción:_ Visualización en tiempo real de las solicitudes y respuestas procesadas por la API a traves de Google Cloud Run.
 
 - **Ejemplo de Respuesta de la API:**  
-  ![Respuesta API](sentiment_responses.png)  
+  ![Respuesta API](sentiments_responses.png)  
   _Descripción:_ Ejemplo del JSON devuelto que muestra la clasificación del sentimiento y el score correspondiente.
 
 ## Tecnologías y Herramientas Utilizadas
