@@ -11,6 +11,9 @@ Este proyecto se centra en analizar el sentimiento de textos (positivo, negativo
   - Integrar una API que permita el consumo del modelo en tiempo real.
   - Implementar buenas prácticas de MLOps para asegurar escalabilidad y mantenimiento.
 
+## Contexto
+En este flujo de trabajo, el equipo de Model Building entrena y ajusta un modelo de machine learning especializado para el análisis de sentimientos. Una vez entrenado, el modelo es entregado al equipo de Model Inference para integrarlo en un entorno productivo a través de una API. Proporcionando una solución escalable, eficiente y fácil de usar para consumir predicciones del modelo.
+
 ## Descripción General
 Este proyecto tiene como objetivo extraer, procesar, almacenar y analizar datos de reseñas de productos mediante un pipeline orientado a **Data Engineering** y **Data Science**.
 
@@ -129,6 +132,49 @@ El diagrama muestra cómo se recibe los datos de web scraping, se procesa median
 El proyecto aborda la necesidad de recopilar información no estructurada desde la web, procesarla adecuadamente, almacenarla de forma eficiente y analizar el sentimiento asociado a las opiniones de los usuarios sobre productos específicos. Esto permite identificar patrones clave, como percepción de productos o tendencias de mercado.
 Usando Redes Neuornales, en lugar de transformadores, para no hacer uso de GPUS en la nube y evitar costos futuros. Pero si es el caso de poder abordar este tipo de procesamiento seria aun mejor, la prediccion de sentimiento con Fine-Tuning.
 
+## Estructura del Proyecto Model Building
+```
+|-- .github/
+|    |-- action.yml              # github actions CI/CD
+|
+|-- src/
+|   |-- runner.py              #orchestrate the whole project
+|   |
+|   |-- config/
+|   |   |-- __init__.py          # Inicializador de configuración.
+|   |   |-- .env                   # Enviroments varaibles
+|   |   |-- csv_to.py           # Extract data cleaned from Book1.csv and load into Database
+|   |   |-- csv.py
+|   |   |-- db.py                # Pydantic Functions
+|   |   |-- logger.py          # Pydantic Functions
+|   |   |-- model.py          # Pydantic Functions
+|   |  
+|   |-- db/
+|   |   |-- db_model.py     # Characteristics of database
+|   |
+|   |-- model/
+|   |   |-- models/
+|   |   
+|   |   |-- pipeline/
+|   |   |-- Book1.csv                     # Datos de web scraping
+|   |   |-- clean.py                        # Limpieza de datos con Pandas y Regexp
+|   |   |-- collection.py                 # Collect data from database
+|   |   |-- model_2.py                   # Using torch.jit way
+|   |   |-- model.py                       # Using torch.save
+|   |   |-- preproccessing_text.py #  Apply NLTK techniques to data from database
+|   |   |-- model_service.py           # This module provides functionality for managing a ML model.
+|   |
+|   |-- logs/
+|   |   |-- app.logs
+|
+|-- Makefile                # Archivo para automatización
+|-- poetry.lock            # Lockfile de Poetry.
+|-- pyproject.toml      # Archivo principal de Poetry.
+|-- README.md         # Documentación del proyecto.
+|-- setup.cfg              # Configuración adicional de Python.
+|
+```
+
 #### Diagarama de Arquitecutra Model Inference
 ![Pipeline de Procesamiento](inference.png)  
 _Esta imagen detalla el proceso de Model Inference._
@@ -143,8 +189,11 @@ _Esta imagen detalla el proceso de Model Inference._
 4. **Respuesta:**  
    Se devuelve un JSON con el resultado del análisis y métricas asociadas.
 
-## Estructura del Proyecto
+## Estructura del Proyecto Model Inference
 ```
+|-- .github/
+|   |-- ci/cd.yml
+|
 |-- app/
 |   |-- run.py        # Código de la API (Flask).
 |   |
@@ -181,9 +230,6 @@ _Esta imagen detalla el proceso de Model Inference._
 
 ## Descripción del Proyecto
 Este proyecto tiene como objetivo desarrollar una API utilizando Flask para realizar inferencia con un modelo de análisis de sentimientos proporcionado por otro equipo de trabajo encargado de la creación y entrenamiento de modelos (Model Building). Este sistema está diseñado para acelerar el proceso de análisis de las reseñas de productos, optimizando la capacidad de la empresa para tomar decisiones basadas en los comentarios de los clientes.
-
-## Contexto
-En este flujo de trabajo, el equipo de Model Building entrena y ajusta un modelo de machine learning especializado para el análisis de sentimientos. Una vez entrenado, el modelo es entregado al equipo de Model Inference para integrarlo en un entorno productivo a través de una API. Este proyecto aborda esa segunda etapa, proporcionando una solución escalable, eficiente y fácil de usar para consumir predicciones del modelo.
 
 ## Consideraciones de diseño
 Este proyecto está diseñado como un prototipo funcional para demostrar habilidades técnicas en un entorno controlado. Actualmente, la API es sincrónica, lo que es adecuado para un único usuario que realiza solicitudes de análisis de sentimientos.
