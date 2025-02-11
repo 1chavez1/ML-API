@@ -203,11 +203,9 @@ Dando paso a usar multi satge builds para reducir el peso de la imagen, he evita
   ![Docker Image](dockerimage_with_multi_stage_.png) 
 
 
-#### Google Clodu Run
+## Google Clodu Run
   ![Artifact Regisrty](gcloud_3.png) 
 Dando Uso a la imagen docker creada, haciendo deploy de esta en la nube de google.
-
-## Demostraciones Visuales
 
 - **Dashboard de Monitorización:**  
   ![Dashboard](gcloud.png)  
