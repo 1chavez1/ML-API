@@ -44,27 +44,6 @@ _Esta imagen detalla el proceso de Model Inference._
 4. **Respuesta:**  
    Se devuelve un JSON con el resultado del análisis y métricas asociadas.
 
-## Descripción del Proyecto
-Este proyecto tiene como objetivo desarrollar una API utilizando Flask para realizar inferencia con un modelo de análisis de sentimientos proporcionado por otro equipo de trabajo encargado de la creación y entrenamiento de modelos (Model Building). Este sistema está diseñado para acelerar el proceso de análisis de las reseñas de productos, optimizando la capacidad de la empresa para tomar decisiones basadas en los comentarios de los clientes.
-
-## Contexto
-En este flujo de trabajo, el equipo de Model Building entrena y ajusta un modelo de machine learning especializado para el análisis de sentimientos. Una vez entrenado, el modelo es entregado al equipo de Model Inference para integrarlo en un entorno productivo a través de una API. Este proyecto aborda esa segunda etapa, proporcionando una solución escalable, eficiente y fácil de usar para consumir predicciones del modelo.
-
-## Consideraciones de diseño
-Este proyecto está diseñado como un prototipo funcional para demostrar habilidades técnicas en un entorno controlado. Actualmente, la API es sincrónica, lo que es adecuado para un único usuario que realiza solicitudes de análisis de sentimientos.
-
-En un entorno de producción con múltiples usuarios o altos volúmenes de solicitudes, se recomienda implementar una arquitectura asíncrona
-
-#### CI/CD GITHUB Actions
-Tanto en model building y model inference se implemento el archivo yaml, para esto.
-
-#### Docker
-![Dockerfile](docker.png)  
-Despues de que el equipo de model inference, haya creado la API, esta se usa para crear la imagen docker.
-Dando paso a usar multi satge builds para reducir el peso de la imagen, he evitar tiempos altos de ejecucion en CI/CD CON GITHUB Actions.
-
-  ![Docker Image](dockerimage_with_multi_stage_.png) 
-
 ## Estructura del Proyecto
 ```
 |-- app/
@@ -100,6 +79,27 @@ Dando paso a usar multi satge builds para reducir el peso de la imagen, he evita
 - **Dockerfile**: Archivo para contenerizar la aplicación.
 - **pyproject.toml**: Dependencias del proyecto.
 - **README.md**: Documentación del proyecto.
+
+## Descripción del Proyecto
+Este proyecto tiene como objetivo desarrollar una API utilizando Flask para realizar inferencia con un modelo de análisis de sentimientos proporcionado por otro equipo de trabajo encargado de la creación y entrenamiento de modelos (Model Building). Este sistema está diseñado para acelerar el proceso de análisis de las reseñas de productos, optimizando la capacidad de la empresa para tomar decisiones basadas en los comentarios de los clientes.
+
+## Contexto
+En este flujo de trabajo, el equipo de Model Building entrena y ajusta un modelo de machine learning especializado para el análisis de sentimientos. Una vez entrenado, el modelo es entregado al equipo de Model Inference para integrarlo en un entorno productivo a través de una API. Este proyecto aborda esa segunda etapa, proporcionando una solución escalable, eficiente y fácil de usar para consumir predicciones del modelo.
+
+## Consideraciones de diseño
+Este proyecto está diseñado como un prototipo funcional para demostrar habilidades técnicas en un entorno controlado. Actualmente, la API es sincrónica, lo que es adecuado para un único usuario que realiza solicitudes de análisis de sentimientos.
+
+En un entorno de producción con múltiples usuarios o altos volúmenes de solicitudes, se recomienda implementar una arquitectura asíncrona
+
+#### CI/CD GITHUB Actions
+Tanto en model building y model inference se implemento el archivo yaml, para esto.
+
+#### Docker
+![Dockerfile](docker.png)  
+Despues de que el equipo de model inference, haya creado la API, esta se usa para crear la imagen docker.
+Dando paso a usar multi satge builds para reducir el peso de la imagen, he evitar tiempos altos de ejecucion en CI/CD CON GITHUB Actions.
+
+  ![Docker Image](dockerimage_with_multi_stage_.png) 
 
 
 #### Google Clodu Run
