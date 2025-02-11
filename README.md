@@ -50,6 +50,7 @@ Dando paso a usar multi satge builds para reducir el peso de la imagen, he evita
 
 
 #### Google Clodu Run
+  ![Artifact Regisrty](gcloud_3.png) 
 Dando Uso a la imagen docker creada, haciendo deploy de esta en la nube de google.
 
 ## Demostraciones Visuales
