@@ -1,17 +1,17 @@
 # Análisis de Sentimientos con ML y MLOps
 
 ## Resumen del Proyecto
-Este proyecto se centra en analizar el sentimiento de textos (positivo, negativo o neutral) utilizando técnicas avanzadas de procesamiento de lenguaje natural (NLP) y un enfoque MLOps para asegurar una integración y despliegue continuo en ambientes productivos.
+Este proyecto se centra en analizar el sentimiento de textos (positivo, negativo o neutral) utilizando técnicas de procesamiento ML y un enfoque MLOps para asegurar una integración y despliegue continuo en ambientes productivos.
 
 ## Motivación y Objetivos
 - **Motivación:**  
-  Explica la necesidad de contar con una herramienta que interprete automáticamente el tono de los textos, facilitando la toma de decisiones en áreas como atención al cliente, análisis de opiniones en redes sociales, etc.
+  Se toma importancia a la necesidad de contar con una herramienta que interprete automáticamente el tono de los textos, facilitando la toma de decisiones en áreas como atención al cliente, análisis de opiniones en redes sociales, etc.
 - **Objetivos:**  
   - Desarrollar un modelo robusto de análisis de sentimientos.
   - Integrar una API que permita el consumo del modelo en tiempo real.
   - Implementar buenas prácticas de MLOps para asegurar escalabilidad y mantenimiento.
 
-### Diagrama de Arquitectura
+### Diagrama de Arquitectura Model Building
 ![Diagrama de Arquitectura](architecture_model.png)  
 _Descripción:_  
 El diagrama muestra cómo se recibe los datos de web scraping, se procesa mediante técnicas de NLP, se analiza el sentimiento y se devuelve una respuesta.
@@ -26,9 +26,31 @@ El diagrama muestra cómo se recibe los datos de web scraping, se procesa median
 4. **Respuesta:**  
    Se devuelve un JSON con el resultado del análisis y métricas asociadas.
 
-#### Ilustración del Proceso
-![Pipeline de Procesamiento](pipeline.png)  
-_Esta imagen detalla las etapas por las que pasa el texto desde su recepción hasta la entrega del resultado._
+#### Diagarama de Arquitecutra Model Inference
+![Pipeline de Procesamiento](inference.png)  
+_Esta imagen detalla el proceso de Model Inference._
+
+### Pipeline de API 
+1. **Uso del modelo creado por el equipo model building:**  
+   Se carga el modelo con torch.jit.load().
+2. **Preprocesamiento:**  
+   Se aplican técnicas vectorizacion al texto, para aplicar predicciones de sentimiento.
+3. **Análisis del Sentimiento:**  
+   El modelo, entrenado con datos etiquetados, evalúa el texto y genera una clasificación (positivo, negativo, neutral).
+4. **Respuesta:**  
+   Se devuelve un JSON con el resultado del análisis y métricas asociadas.
+
+#### CI/CD GITHUB Actions
+Tanto en model building y model inference se implemento el archivo yaml, para esto.
+
+#### Docker
+![Dockerfile](docker.png)  
+Despues de que el equipo de model inference, haya creado la API, esta se usa para crear la imagen docker.
+Dando paso a usar multi satge builds para reducir el peso de la imagen, he evitar tiempos altos de ejecucion en CI/CD CON GITHUB Actions.
+
+
+#### Google Clodu Run
+Dando Uso a la imagen docker creada, haciendo deploy de esta en la nube de google.
 
 ## Demostraciones Visuales
 
