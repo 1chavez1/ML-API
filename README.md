@@ -115,39 +115,6 @@ El proyecto está estructurado en 5 etapas:
      - Negativo
      - Neutral
    - **Herramientas**: `PyTorch`, `NLTK`, `Scikit-Learn`.
-   - **Cargado de datos**:
-     - Utilizando la funcion creada load_data_and_prepare_dataframe, con esta se cargan los datos limpios desde PostgreSQL. Igual con la misma funcion, esta lo que hace es cargar los datos y con NLTK.corpus, da uso a stop words, para limpiar el texto de las reseñas. Entonces carga los datos limpios hacia el script de analisis de sentimiento.
-   - **Transformacion de datos**:
-     - Con el uso de TfidfVectorizer de Scikit Learn, para vectorizar el texto de las reseñas.
-     - Con el uso de LabelEncoder de Scikit Learn, para convertir las etiquetas de postivo, negativo y neutral, hacia valores numericos 0,1,2.
-   - **Separacion de datos**:
-     - Con train_test_split de scikit learn, para dividir los datos, en datos de entrenamiento y prueba.
-   - **Preparacion del Modelo**:
-     - Se prepara el modelo con las utilidades de PyTorch para adaptar los datos a un TensorDataset. Convirtiendo esto en un DataLoader y creando las variables train_loader y test_loader.
-   - **Arquitectura del Modelo**:
-     - El modelo está diseñado utilizando PyTorch y sigue una estructura multicapa completamente conectada (fully connected). A continuación, se describe cada capa y su funcionalidad:
-      Dando uso a 2 capas mas, iguales que la presentada:
-      Capa 1:
-
-        Tipo: Capa completamente conectada (Linear)
-        Entrada: input_size (dimensionalidad de los datos de entrada)
-        Salida: 256 neuronas
-        Operaciones adicionales:
-        Normalización por lotes (BatchNorm1d) para estabilizar el entrenamiento.
-        Activación ReLU (ReLU) para introducir no linealidad.
-        Dropout (Dropout) con una tasa de 0.5 para prevenir el sobreajuste.
-
-        Capa de salida:
-
-          Tipo: Capa completamente conectada (Linear)
-          Entrada: 64
-          Salida: num_classes (número de clases de salida para la clasificación).
-          
-      - Este modelo incluye mecanismos de regularización como la normalización por lotes y dropout, los cuales ayudan a mejorar la estabilidad y generalización durante el entrenamiento. La activación ReLU introduce no linealidad en las capas ocultas, permitiendo al modelo aprender patrones complejos en los datos de entrada.
-   - **Entrenamiento del Modelo**:
-     - Se pasan estos cuatro argumentos a la funcion, model, criterion, optimizer y train_loader. Despues en un ciclo for con un rango de 40 epocas de entrenamiento, para obtener la perdida por epoca.
-   - **Evaluacion del Modelo**:
-     - La función de evaluación del modelo se encarga de medir qué tan preciso es el modelo al trabajar con datos de prueba. Para hacerlo, primero se coloca el modelo en modo de evaluación, desactivando características como Dropout y ajustando BatchNorm para asegurar resultados consistentes. Luego, dentro de un bloque donde se desactivan los cálculos de gradientes (lo que ahorra memoria y acelera el proceso), el modelo procesa los datos en lotes. En cada lote, realiza predicciones y las compara con las etiquetas reales, contando cuántas acierta. Al final, se calcula la precisión dividiendo el número de aciertos entre el total de ejemplos, y este resultado se registra como un porcentaje.
 
 ### Diagrama de Arquitectura Model Building
 ![Diagrama de Arquitectura](architecture_model.png)  
