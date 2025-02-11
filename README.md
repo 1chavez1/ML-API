@@ -109,7 +109,7 @@ El proyecto está estructurado en 5 etapas:
      - Se pasan estos cuatro argumentos a la funcion, model, criterion, optimizer y train_loader. Despues en un ciclo for con un rango de 40 epocas de entrenamiento, para obtener la perdida por epoca.
    - **Evaluacion del Modelo**:
      - La función de evaluación del modelo se encarga de medir qué tan preciso es el modelo al trabajar con datos de prueba. Para hacerlo, primero se coloca el modelo en modo de evaluación, desactivando características como Dropout y ajustando BatchNorm para asegurar resultados consistentes. Luego, dentro de un bloque donde se desactivan los cálculos de gradientes (lo que ahorra memoria y acelera el proceso), el modelo procesa los datos en lotes. En cada lote, realiza predicciones y las compara con las etiquetas reales, contando cuántas acierta. Al final, se calcula la precisión dividiendo el número de aciertos entre el total de ejemplos, y este resultado se registra como un porcentaje.
-     
+
 ### Diagrama de Arquitectura Model Building
 ![Diagrama de Arquitectura](architecture_model.png)  
 _Descripción:_  
@@ -197,6 +197,8 @@ Tanto en model building y model inference se implemento el archivo yaml, para es
 ![Dockerfile](docker.png)  
 Despues de que el equipo de model inference, haya creado la API, esta se usa para crear la imagen docker.
 Dando paso a usar multi satge builds para reducir el peso de la imagen, he evitar tiempos altos de ejecucion en CI/CD CON GITHUB Actions.
+
+#### Docker Image
 
   ![Docker Image](dockerimage_with_multi_stage_.png) 
 
