@@ -11,6 +11,105 @@ Este proyecto se centra en analizar el sentimiento de textos (positivo, negativo
   - Integrar una API que permita el consumo del modelo en tiempo real.
   - Implementar buenas prácticas de MLOps para asegurar escalabilidad y mantenimiento.
 
+## Descripción General
+Este proyecto tiene como objetivo extraer, procesar, almacenar y analizar datos de reseñas de productos mediante un pipeline orientado a **Data Engineering** y **Data Science**.
+
+## Operaciones Principales
+El proyecto está estructurado en 5 etapas:
+
+### 1. **Web Scraping**
+   - **Descripción**: Extracción automatizada de reseñas y metadatos de productos desde sitios web.
+   - **Herramientas**:
+     - `Scrapy`  para HTML parsing y extracción de datos a mayor escala.
+
+---
+
+### 2. **Limpieza y Procesamiento de Datos**
+   - **Descripción**: Transformación de datos crudos en datos estructurados y limpios.
+   - **Tareas Clave**:
+     - Eliminación de duplicados.
+     - Normalización de textos (lowercase, eliminación de caracteres especiales).
+     - Tratamiento de valores faltantes.
+   - **Herramientas**: `Pandas`, `re` (expresiones regulares).
+
+---
+
+### 3. **ETL (Extracción, Transformación y Carga)**
+   - **Descripción**: Implementación de un pipeline ETL para cargar los datos limpios en una base de datos.
+   - **Proceso**:
+     - **Extracción**: Datos limpios desde el archivo CSV, Book1.
+     - **Transformación**: Optimizar datos para almacenamiento eficiente.
+     - **Carga**: Inserción de datos en PostgreSQL mediante `SQLAlchemy`.
+   - **Herramientas**:
+     - `Pandas` y `SQLAlchemy` para operaciones ETL.
+     - PostgreSQL para almacenamiento de datos.
+   - **Consideraciones**:
+     - Estructura de tablas optimizada para consultas rápidas.
+     - Indexación de claves principales.
+     - Gestor de conexiones a la base de datos.
+
+---
+
+### 4. **Almacenamiento en PostgreSQL**
+   - **Descripción**: Almacenamiento estructurado y eficiente de los datos.
+   - **Estructura de la Base de Datos**:
+     - **Tabla Principal**: `review_analysis_`
+       | Columna           | Tipo         | Descripción                          |
+       |------------------ |--------------|--------------------------------------|
+       | id                | SERIAL (PK)  | Identificador único de la reseña     |
+       | author            | VARCHAR      | Nombre del producto                  |
+       | date              | VARCHAR      | Fecha de la reseña                   |
+       | header            | VARCHAR      | Preview de la reseña                 |
+       | rating            | INTEGER      | Sentimiento (positivo, negativo...)  |
+       | review            | TEXT         | Reseña del producto                  |
+   - **Conexión Segura**: Uso de credenciales almacenadas en variables de entorno.
+   - **Herramienta**: PostgreSQL con ORM `SQLAlchemy`.
+
+---
+
+### 5. **Análisis de Sentimiento**
+   - **Descripción**: Identificación del sentimiento asociado a cada reseña.
+   - **Método Utilizado**:
+     - Análisis de Sentimiento Basado en Redes Neuronales Supervisadas. Mediante el entrenamiento en datos etiquetados.
+   - **Etiquetas de Sentimiento**:
+     - Positivo
+     - Negativo
+     - Neutral
+   - **Herramientas**: `PyTorch`, `NLTK`, `Scikit-Learn`.
+   - **Cargado de datos**:
+     - Utilizando la funcion creada load_data_and_prepare_dataframe, con esta se cargan los datos limpios desde PostgreSQL. Igual con la misma funcion, esta lo que hace es cargar los datos y con NLTK.corpus, da uso a stop words, para limpiar el texto de las reseñas. Entonces carga los datos limpios hacia el script de analisis de sentimiento.
+   - **Transformacion de datos**:
+     - Con el uso de TfidfVectorizer de Scikit Learn, para vectorizar el texto de las reseñas.
+     - Con el uso de LabelEncoder de Scikit Learn, para convertir las etiquetas de postivo, negativo y neutral, hacia valores numericos 0,1,2.
+   - **Separacion de datos**:
+     - Con train_test_split de scikit learn, para dividir los datos, en datos de entrenamiento y prueba.
+   - **Preparacion del Modelo**:
+     - Se prepara el modelo con las utilidades de PyTorch para adaptar los datos a un TensorDataset. Convirtiendo esto en un DataLoader y creando las variables train_loader y test_loader.
+   - **Arquitectura del Modelo**:
+     - El modelo está diseñado utilizando PyTorch y sigue una estructura multicapa completamente conectada (fully connected). A continuación, se describe cada capa y su funcionalidad:
+      Dando uso a 2 capas mas, iguales que la presentada:
+      Capa 1:
+
+        Tipo: Capa completamente conectada (Linear)
+        Entrada: input_size (dimensionalidad de los datos de entrada)
+        Salida: 256 neuronas
+        Operaciones adicionales:
+        Normalización por lotes (BatchNorm1d) para estabilizar el entrenamiento.
+        Activación ReLU (ReLU) para introducir no linealidad.
+        Dropout (Dropout) con una tasa de 0.5 para prevenir el sobreajuste.
+
+        Capa de salida:
+
+          Tipo: Capa completamente conectada (Linear)
+          Entrada: 64
+          Salida: num_classes (número de clases de salida para la clasificación).
+          
+      - Este modelo incluye mecanismos de regularización como la normalización por lotes y dropout, los cuales ayudan a mejorar la estabilidad y generalización durante el entrenamiento. La activación ReLU introduce no linealidad en las capas ocultas, permitiendo al modelo aprender patrones complejos en los datos de entrada.
+   - **Entrenamiento del Modelo**:
+     - Se pasan estos cuatro argumentos a la funcion, model, criterion, optimizer y train_loader. Despues en un ciclo for con un rango de 40 epocas de entrenamiento, para obtener la perdida por epoca.
+   - **Evaluacion del Modelo**:
+     - La función de evaluación del modelo se encarga de medir qué tan preciso es el modelo al trabajar con datos de prueba. Para hacerlo, primero se coloca el modelo en modo de evaluación, desactivando características como Dropout y ajustando BatchNorm para asegurar resultados consistentes. Luego, dentro de un bloque donde se desactivan los cálculos de gradientes (lo que ahorra memoria y acelera el proceso), el modelo procesa los datos en lotes. En cada lote, realiza predicciones y las compara con las etiquetas reales, contando cuántas acierta. Al final, se calcula la precisión dividiendo el número de aciertos entre el total de ejemplos, y este resultado se registra como un porcentaje.
+     
 ### Diagrama de Arquitectura Model Building
 ![Diagrama de Arquitectura](architecture_model.png)  
 _Descripción:_  
