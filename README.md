@@ -239,14 +239,6 @@ Dando Uso a la imagen docker creada, haciendo deploy de esta en la nube de googl
   ![Respuesta API](sentiments_responses.png)  
   _Descripción:_ Ejemplo del JSON devuelto que muestra la clasificación del sentimiento y el score correspondiente.
 
-## Tecnologías y Herramientas Utilizadas
-- **Lenguaje:** Python
-- **Framework de API:** Flask
-- **Bibliotecas de NLP:** NLTK
-- **Modelo de Machine Learning:** PyTorch
-- **MLOps:** Docker, integración con CI/CD (GitHub Actions)
-- **Despliegue en la Nube:** GCR
-
 ## Conclusiones y Futuras Mejoras
 - **Conclusiones:**  
   En resumen, este proyecto representa un avance significativo en la integración de Data Science y MLOps, proporcionando una solución end-to-end para el análisis de sentimiento en textos. La arquitectura implementada garantiza un flujo de trabajo eficiente y escalable, abarcando desde la adquisición y procesamiento de datos hasta el despliegue automatizado en la nube. La utilización de pipelines automatizados para model building y model inference, junto con una robusta estrategia de CI/CD, subraya el compromiso con la calidad, la agilidad y la innovación. Este enfoque integral no solo resuelve desafíos actuales, sino que también prepara el camino para futuras mejoras y adaptaciones en entornos de alta demanda, posicionando al proyecto como una referencia en el ámbito de la inteligencia artificial aplicada a la industria.
