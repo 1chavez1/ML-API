@@ -48,7 +48,7 @@ Tanto en model building y model inference se implemento el archivo yaml, para es
 Despues de que el equipo de model inference, haya creado la API, esta se usa para crear la imagen docker.
 Dando paso a usar multi satge builds para reducir el peso de la imagen, he evitar tiempos altos de ejecucion en CI/CD CON GITHUB Actions.
 
-  ![Docker Image](dockerimage_with_multi_stage_.png.png) 
+  ![Docker Image](dockerimage_with_multi_stage_.png) 
 
 
 #### Google Clodu Run
