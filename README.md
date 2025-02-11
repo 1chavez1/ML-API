@@ -221,7 +221,7 @@ En un entorno de producción con múltiples usuarios o altos volúmenes de solic
 Despues de que el equipo de model inference, haya creado la API, esta se usa para crear la imagen docker.
 Dando paso a usar multi satge builds para reducir el peso de la imagen, he evitar tiempos altos de ejecucion en CI/CD CON GITHUB Actions.
 
-#### Docker Image
+## Docker Image
 
   ![Docker Image](dockerimage_with_multi_stage_.png) 
 
