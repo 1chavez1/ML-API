@@ -53,7 +53,7 @@ Este proyecto optimiza el ciclo de desarrollo e implementación, ofreciendo una 
 ## Contexto
 En este flujo de trabajo, el equipo de Model Building entrena y ajusta un modelo de machine learning especializado para el análisis de sentimientos. Una vez entrenado, el modelo es entregado al equipo de Model Inference para integrarlo en un entorno productivo a través de una API. Proporcionando una solución escalable, eficiente y fácil de usar para consumir predicciones del modelo.
 
-## Operaciones Principales
+## Operaciones Principales Model Building
 El proyecto está estructurado en 5 etapas:
 
 ### 1. **Web Scraping**
